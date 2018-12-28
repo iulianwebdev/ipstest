@@ -9,6 +9,11 @@ use Response;
 class ApiController extends Controller
 {
     // Todo: Module reminder assigner
+    
+    public function assingModuleReminder(Request $request) 
+    {
+        return;
+    }
 
     private function exampleCustomer(){
 

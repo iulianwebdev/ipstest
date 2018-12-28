@@ -19,9 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/api/module_reminder_assigner', 'ApiController@assingModuleReminder')->middleware('auth');
 
 Route::get('/authorize_infusionsoft', 'InfusionsoftController@authorizeInfusionsoft')->name('infusionsoft.authorize');
 
