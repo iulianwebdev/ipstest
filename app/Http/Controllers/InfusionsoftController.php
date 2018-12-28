@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\InfusionsoftHelper;
+use Illuminate\Support\Facades\Log;
 use Request;
-use Storage;
 use Response;
 
 class InfusionsoftController extends Controller
@@ -37,9 +37,13 @@ class InfusionsoftController extends Controller
     public function testInfusionsoftIntegrationCreateContact(){
 
         $infusionsoft = new InfusionsoftHelper();
+        
+        $testEmail = uniqid().'@test.com';
+        
+        Log::info($testEmail);
 
         return Response::json($infusionsoft->createContact([
-            'Email' => uniqid().'@test.com',
+            'Email' => $testEmail,
             "_Products" => 'ipa,iea'
         ]));
     }
