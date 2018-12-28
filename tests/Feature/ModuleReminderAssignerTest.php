@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\Traits\HttpPost;
 use Tests\TestCase;
+use App\User;
 
 class ModuleReminderAssignerTest extends TestCase
 {
@@ -45,5 +46,30 @@ class ModuleReminderAssignerTest extends TestCase
         $response = $this->httpPost($payload);
 
         $response->assertStatus(self::UNAUTHORIZED);
+    }
+
+    /**
+     * Check that a wrong format email sends the right json 
+     * 
+     * @return void
+     */
+    public function testApiDoesNotAcceptInvalidEmail() 
+    {
+        $this->actingAs(new User([
+            'id' => 1,
+            'name' => 'Test User'
+        ]));
+
+        $payload = [
+            'contact_email' => 'not-.valid@inexistent_email',
+        ];
+
+        $response = $this->httpPost($payload);
+
+        $response->assertExactJson([
+            'success' => false,
+            'message' => 'Email not valid.',
+        ]);
+        
     }
 }
