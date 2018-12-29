@@ -61,6 +61,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="is-admin" class="col-md-4 col-form-label text-md-right">{{__('Is admin?')}}</label>
+                            <div class="col-md-6 pt-1">
+                                <input id="is-admin" type="checkbox" class="checkbox-inline mt-2" value="1" name="is_admin" >
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -12,6 +12,7 @@ class Tag extends Model
         'id',
         'name',
         'description',
+        'category_id',
     ];
 
     public function category() 

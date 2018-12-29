@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','is_admin'
     ];
 
     /**
@@ -30,5 +30,15 @@ class User extends Authenticatable
     public function completed_modules()
     {
         return $this->belongsToMany('App\Module', 'user_completed_modules');
+    }
+
+    public function scopeContacts($query) 
+    {
+        return $query->where('is_admin', 0);
+    }
+
+    public function isAdmin() 
+    {
+        return $this->is_admin === 1;
     }
 }

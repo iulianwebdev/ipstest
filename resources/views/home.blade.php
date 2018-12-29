@@ -18,6 +18,15 @@
 
                     <hr>
 
+                    
+                    @can('view-contacts')
+                        <ul>
+                            @foreach($contacts as $contact)
+                                <li>{{$contact->email}}</li>
+                            @endforeach
+                        </ul>
+                    @endcan
+
                     <p>Completed modules:</p>
 
                     <p>

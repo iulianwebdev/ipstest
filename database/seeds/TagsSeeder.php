@@ -49,7 +49,6 @@ class TagsSeeder extends Seeder
                 'description' => $tag->category->description,
             ]);
 
-
             $newTag->category()->associate($category->fresh());
         }
 
