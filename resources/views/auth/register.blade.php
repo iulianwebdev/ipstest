@@ -61,12 +61,32 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" >
                             <label for="is-admin" class="col-md-4 col-form-label text-md-right">{{__('Is admin?')}}</label>
                             <div class="col-md-6 pt-1">
                                 <input id="is-admin" type="checkbox" class="checkbox-inline mt-2" value="1" name="is_admin" >
                             </div>
                         </div>
+                        
+                        @if (!empty($courses))
+                            <div class="form-group row">
+                                <label for="is-admin" class="col-md-4 col-form-label text-md-right">{{__('Select courses')}}</label>
+                                <div class="col-md-6">
+                                    <select id="courses" multiple="multiple" name="courses[]" class="form-control {{ $errors->has('courses') ? ' is-invalid' : '' }}"">
+                                        @foreach($courses as $course)
+                                             <option value="{{$course}}">{{$course}}</option>
+                                         @endforeach
+                                    </select>
+                                    @if ($errors->has('courses'))
+                                        <span class="invalid-feedback courses">
+                                            <strong>{{ $errors->first('courses') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                
+                            </div>
+                        @endif
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

@@ -12,6 +12,7 @@ class iPSDevTestSeeder extends Seeder
      */
     public function run()
     {
+        if(Module::count() > 0) return;
 
         for ($i = 1; $i <= 7; $i++){
             Module::insert([

@@ -18,24 +18,30 @@
 
                     <hr>
 
-                    
+                    <div id="status" class="alert text-center"></div>
                     @can('view-contacts')
-                        <ul>
+                        <div class="list-group">
                             @foreach($contacts as $contact)
-                                <li>{{$contact->email}}</li>
+                                <div class="list-group-item d-flex justify-content-between">{{$contact->name}}
+                                    <button onclick="sendReminder('{{$contact->email}}')" type="submit" class="btn btn-sm btn-dark">Send Module Reminder</button>
+                    
+                                </div>
+
                             @endforeach
-                        </ul>
+                        </div>
                     @endcan
+                    
+                    @if(!auth()->user()->completed_modules->isEmpty())
+                        <p>Completed modules:</p>
 
-                    <p>Completed modules:</p>
-
-                    <p>
-                        <ul>
-                            @foreach(auth()->user()->completed_modules as $module)
-                                <li>{{ $module->course_key }} - {{ $module->name }}</li>
-                            @endforeach
-                        </ul>
-                    </p>
+                        <p>
+                            <ul class="list-group">
+                                @foreach(auth()->user()->completed_modules as $module)
+                                    <li class="list-group-item">{{ $module->course_key }} - {{ $module->name }}</li>
+                                @endforeach
+                            </ul>
+                        </p>
+                    @endif
                 </div>
             </div>
         </div>
