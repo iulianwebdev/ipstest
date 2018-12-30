@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use App\Module;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -35,6 +36,22 @@ class User extends Authenticatable
     public function scopeContacts($query) 
     {
         return $query->where('is_admin', 0);
+    }
+
+    public function scopeAvailableModules($query, $courses) 
+    {
+        $ids = $this->completed_modules()
+                ->distinct('id')
+                ->pluck('modules.id')
+                ->toArray();
+        
+        $query = Module::whereIn('course_key', $courses);
+
+        if(!empty($ids)) {
+            $query->whereNotIn('id', $ids);
+        }
+
+        return $query;
     }
 
     public function isAdmin() 

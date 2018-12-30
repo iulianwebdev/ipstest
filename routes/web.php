@@ -20,7 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/api/module_reminder_assigner', 'ApiController@assingModuleReminder')->middleware('auth');
-
 Route::get('/authorize_infusionsoft', 'InfusionsoftController@authorizeInfusionsoft')->name('infusionsoft.authorize');
 
 Route::get('/infusionsoft_test_get_by_email/{email}', 'InfusionsoftController@testInfusionsoftIntegrationGetEmail')->name('api.infusionsoft_test_email');

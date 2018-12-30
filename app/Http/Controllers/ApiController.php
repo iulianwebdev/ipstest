@@ -3,28 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\InfusionsoftHelper;
+use App\Http\Managers\ModuleReminderManager;
 use App\Http\Requests\AssignModuleRequest;
-
+use Illuminate\Support\Facades\Request;
 use Response;
 
 class ApiController extends Controller
 {
+    private $manager;
+
+    public function __construct(ModuleReminderManager $manager) 
+    {
+        
+        $this->manager = $manager;
+    }
+    
     // Todo: Module reminder assigner
     
-    public function assingModuleReminder(AssignModuleRequest $request) 
+    public function assingModuleReminder(AssignModuleRequest $request)
     {
+        $validated = $request->validated();
 
+        $responseMessage = $this->manager->attachNextReminderTagOrFail($validated['contact_email']);
+
+        return Response::json([
+            'success' => true,
+            'message' => $responseMessage,
+        ], 200);
     }
 
-    private function exampleCustomer(){
-
+    private function exampleCustomer()
+    {
         $infusionsoft = new InfusionsoftHelper();
 
         $uniqid = uniqid();
 
         $infusionsoft->createContact([
             'Email' => $uniqid.'@test.com',
-            "_Products" => 'ipa,iea'
+            '_Products' => 'ipa,iea'
         ]);
 
         $user = User::create([

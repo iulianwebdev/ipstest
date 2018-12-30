@@ -19,4 +19,14 @@ class Tag extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    public function scopeForModule($query, Module $module) 
+    {
+        return $query->where('name', 'Start '.$module->name.' Reminders')->first();
+    }
+
+    public function scopeCompleted($query) 
+    {
+        return $query->where('name', 'Module reminders completed')->first();
+    }
 }

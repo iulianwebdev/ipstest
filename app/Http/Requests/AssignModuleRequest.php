@@ -47,9 +47,14 @@ class AssignModuleRequest extends FormRequest
      * @throws HttpResponseException
      */
     public function failedValidation(Validator $validator) { 
+         self::jsonError($validator->errors()->first());
+    }
+
+    public static function jsonError(string $message) 
+    {
         throw new HttpResponseException(response()->json([
-            'message' => $validator->errors()->first(),
+            'message' => $message,
             'success' => false,
-        ], 422)); 
+        ], 422));
     }
 }
